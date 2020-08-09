@@ -14,4 +14,4 @@ def minOperations(n):
         while n % i == 0:
             commands += i
             n /= i
-    return int(commands)
+    return commands
