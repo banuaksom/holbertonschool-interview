@@ -7,7 +7,7 @@ def minOperations(n):
     of operations needed to result in exactly n H characters """
     commands = 0
 
-    if n <= 1:
+    if n <= 1 or not isinstance(n, int):
         return 0
 
     for i in range(2, n + 1):
