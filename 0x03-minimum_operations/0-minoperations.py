@@ -2,6 +2,8 @@
 
 
 def minOperations(n):
+    """ write a method that calculates the fewest num
+    of operations needed to result in exactly n H characters """
     commands = 0
 
     if n == 1:
