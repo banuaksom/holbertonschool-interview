@@ -6,11 +6,11 @@ def minOperations(n):
     of operations needed to result in exactly n H characters """
     commands = 0
 
-    if n == 1:
-        return commands
+    if n <= 1:
+        return 0
 
     for i in range(2, n + 1):
         while n % i == 0:
             commands += i
             n /= i
-    return commands
+    return int(commands)
