@@ -53,7 +53,12 @@ void menger(int level)
 		for (i = 0; i < size; i++)
 		{
 			for (j = 0; j < size; j++)
-				printf("%c ", a[i][j]);
+			{
+				if (j == size - 1)
+					printf("%c", a[i][j]);
+				else
+					printf("%c ", a[i][j]);
+			}
 		}
 		printf("\n");
 	}
