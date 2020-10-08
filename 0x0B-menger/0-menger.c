@@ -10,62 +10,37 @@
  */
 void menger(int level)
 {
-	int i, j, size, cur_n, startI, pos, startJ, start_pos_x[8], start_pos_y[8];
-	int **a, **b;
+	int i, j, size, cur_n, startI, startJ;
+	int **a;
 
 	if (level < 0)
 		return;
+
 	size = pow(3, level);
 	a = alloc_array(size);
-	b = alloc_array(size);
-	if (a == NULL || b == NULL)
+	if (a == NULL)
 		return;
+
+	for (i = 0; i < size; i++)
+		for (j = 0; j < size; j++)
+			a[i][j] = ' ';
 	a[0][0] = '#';
 	for (cur_n = 1; cur_n < size; cur_n *= 3)
 	{
-		for (i = 0; i < size; i++)
-			for (j = 0; j < size; j++)
-				b[i][j] = ' ';
-		prepare_start_copy_positions(start_pos_x, start_pos_y, cur_n);
-		for (pos = 0; pos < 8; pos++)
+		for (startI = 0; startI <= 2 * cur_n; startI += cur_n)
 		{
-			startI = start_pos_x[pos];
-			startJ = start_pos_y[pos];
-			for (i = 0; i < cur_n; i++)
-				for (j = 0; j < cur_n; j++)
-					b[startI + i][startJ + j] = a[i][j];
+			for (startJ = 0; startJ <= 2 * cur_n; startJ += cur_n)
+			{
+				if (startI == startJ && (startI == 0 || startI == cur_n))
+					continue;
+				for (i = 0; i < cur_n; i++)
+					for (j = 0; j < cur_n; j++)
+						a[startI + i][startJ + j] = a[i][j];
+			}
 		}
-		for (i = 0; i < size; i++)
-			for (j = 0; j < size; j++)
-				a[i][j] = b[i][j];
 	}
 	print_array(a, size);
 	free_array(a, size);
-	free_array(b, size);
-}
-
-/**
- * prepare_start_copy_positions - prepare start positions
- * @x: Array for x positions
- * @y: Array for y positions
- * @cur_n: current size
- */
-void prepare_start_copy_positions(int *x, int *y, int cur_n)
-{
-	int pos, i, j;
-
-	pos = 0;
-	for (i = 0; i <= 2 * cur_n; i += cur_n)
-	{
-		for (j = 0; j <= 2 * cur_n; j += cur_n)
-		{
-			if (i == cur_n && j == cur_n)
-				continue;
-			x[pos] = i;
-			y[pos] = j;
-			pos++;
-		}
-	}
 }
 
 /**
